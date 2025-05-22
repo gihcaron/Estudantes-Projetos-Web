@@ -23,10 +23,10 @@ export default function Home() {
                 </div>
                 <div className={styles.homeContent}>
                    <h1 className={styles.title}>Giovanna Caron de Barros</h1>
-                   <h2  className={styles.subtitle}> 2TDS1</h2>
-                   <p>Amados Docentes: Thiago Ferreira e Marcelo Carboni</p>
-                   <h2  className={styles.subtitle}> Conheça a API Estudantes e Projets</h2>
-                   <p>Esta API possui 2 entidades: Estudantes e Projetos, onde cada Estudante possui seu projeto relacionado, com o proósito de gerenciar os alunoes de forma eficaz permitindo a visualização de suas atividades e informações pessoais.  </p>
+                   <h3  className={styles.subtitle}> 2TDS1</h3>
+                   <p className={styles.text}>Amados Docentes: Thiago Ferreira e Marcelo Carboni</p>
+                   <h3  className={styles.subtitle}> Conheça a API Estudantes e Projetos:</h3>
+                   <p className={styles.text}>Esta API possui 2 entidades: Estudantes e Projetos, onde cada Estudante possui seu projeto relacionado, com o proósito de gerenciar os alunoes de forma eficaz permitindo a visualização de suas atividades e informações pessoais.  </p>
                    <button className={styles.button} 
                    onClick={() => router.push("/Estudantes")} 
                    prefetch={true}

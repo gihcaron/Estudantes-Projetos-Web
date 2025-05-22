@@ -41,6 +41,7 @@
 }
 
 .homeContent{
+    margin-right: 2rem;
     display: flex;
     width: 70%;
     height: 100%;
@@ -48,6 +49,9 @@
     align-content: center;
     justify-content: center;
     align-items:flex-start;
+    gap: 0.5rem;
+    text-align: justify;
+    
     
 }
 
@@ -59,8 +63,14 @@
 
 .subtitle{
     font-weight: 0.7rem;
-    color:#ae62e1;
-    font-size: 200;
+    color:#540887;
+    font-size: 500;
+}
+
+.text{
+    font-weight: 0.7rem;
+    color:#050505;
+    font-size: 500;
 }
 
 @media (max-width: 1024px) {
