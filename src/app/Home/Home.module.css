@@ -99,4 +99,16 @@
         height: 100%;
 
     }
+
+    .homeCard{
+        flex-direction: column;
+        height: 100%;
+        gap: 0.3rem;
+        
+    }
+    .homeImage{
+        width: 80%;
+        height: 100%;
+    
+    }
 }
