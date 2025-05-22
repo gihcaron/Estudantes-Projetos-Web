@@ -14,8 +14,7 @@ export const metadata = {
    icons: {
     icon: "/icons/favicon.ico",
   },
-
-  description: "Para demonstrar o uso de uma API com Next.js",
+  description: "API para estudantes e projetos",
 };
 
 export default function RootLayout({ children }) {
