@@ -21,6 +21,7 @@ export default function Estudantes() {
     const [modalInfo, setModalInfo] = useState({
         visible: false,
         estudante: null,
+        nome: null,
         email: null,
         projetos_nome: null,
         loading:false,
@@ -45,7 +46,10 @@ export default function Estudantes() {
 },[])
 
 const openModal = async (estudante) => {
-    setModalInfo({visible: true, estudante, email:null, projetos_nome:null, loading:true})
+    setModalInfo({
+        visible: true, 
+        estudante, 
+        loading:true})
 
     try{
         const { data : projetos_nome} = await axios.get(
@@ -54,9 +58,13 @@ const openModal = async (estudante) => {
                 headers: Headers
             }
         );
-        setModalInfo((m)=> ({...m, projetos_nome, email: null, loading:false}))
+        setModalInfo((m)=> ({
+            ...m, 
+            estudante,
+            loading:false}))
+        toast.success(`Estudante ${estudante.nome} carregado com sucesso!`);
     } catch(error){
-        toast.error("Erro ao buscar informações do estudante");
+        toast.error(`Erro ao carregar estudante ${estudante.nome || "desconhecido"}`);
         setModalInfo((m)=> ({...m, loading:false}))
     };
 }
@@ -64,11 +72,23 @@ const openModal = async (estudante) => {
 const paginatedEstudantes = () => {
     const start = (data.current - 1) * data.pageSize;
     return data.estudantes.slice(start, start + data.pageSize);
-  };
-    
-    return (
-        <div>
+};
+
+return (
+    <div className={styles.container}>
             <h1 className={styles.ApiTitle}> Lista de Estudantes e seus Projetos </h1>
+            
+            <Pagination 
+            className={styles.pagination}
+            current={data.current}
+            pageSize={data.pageSize}
+            total={data.estudantes.length}
+            onChange={(page, size) => {
+            setData((d) => ({...d, current: page, pageSize: size}));
+            }}
+            showSizeChanger
+            pageSizeOptions={["5", "10", "100"]}
+            />
        
         <div className={styles.cardsContainer}>
         {paginatedEstudantes().map((estudante) => (
@@ -116,32 +136,30 @@ const paginatedEstudantes = () => {
                 loading:false,
             })
         }
-        >
-            {modalInfo.loading ?
-            (<Skeleton active />
-
-            ): modalInfo.projetos_nome ? (
-                <div
-                className={styles.modalContent}>
-                    <p className={styles.label}> </p>
-                </div>
-            )
-        }
+        width={600}
+        > {modalInfo.loading ? (
+            <Skeleton active />
+          ) :  modalInfo.estudante ? (
+        <div className={styles.estudanteInfo}>
+        <p>
+          <span className={styles.label}>Nome: </span>{" "}
+            {modalInfo.estudante?.nome}
+        </p>
+        <p>
+          <span className={styles.label}>Email: </span>{" "}
+            {modalInfo.estudante?.email}
+        </p>
+        <p>
+          <span className={styles.label}>Projeto:  </span>{" "}
+            {modalInfo.estudante.projeto_nome}
+        </p>
+        </div>
+        ) : (
+            <p> Informações não buscadas</p>
+        )}
         </Modal>
 
-        {/* Paginação  ------- */}
-
-        <Pagination 
-        className={styles.pagination}
-        current={data.current}
-        pageSize={data.pageSize}
-        total={data.estudantes.length}
-        onChange={(page, size) => {
-                setData((d) => ({...d, current: page, pageSize: size}));
-        }}
-        showSizeChanger
-        pageSizeOptions={["5", "10", "100"]}
-        />
+        <ToastContainer position="top-right" autoClose={3000} />
 
     </div>
     );
