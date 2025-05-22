@@ -67,6 +67,9 @@ const paginatedEstudantes = () => {
   };
     
     return (
+        <div>
+            <h1 className={styles.ApiTitle}> Lista de Estudantes e seus Projetos </h1>
+       
         <div className={styles.cardsContainer}>
         {paginatedEstudantes().map((estudante) => (
             <Card
@@ -89,5 +92,57 @@ const paginatedEstudantes = () => {
         ))}
 
         </div>
+
+        {/* Modal */}
+
+        <Modal
+        title={`Informações do Estudantes ${modalInfo.estudante?.nome}`} 
+        open={modalInfo.visible}
+        onCancel={() =>
+            setModalInfo( {
+                visible: false,
+                estudante: null,
+                email:null,
+                projetos_nome:null,
+                loading:false,
+            })
+        }
+        onOk={()=>
+            setModalInfo({
+                visible: false,
+                estudante: null,
+                email:null,
+                projetos_nome:null,
+                loading:false,
+            })
+        }
+        >
+            {modalInfo.loading ?
+            (<Skeleton active />
+
+            ): modalInfo.projetos_nome ? (
+                <div
+                className={styles.modalContent}>
+                    <p className={styles.label}> </p>
+                </div>
+            )
+        }
+        </Modal>
+
+        {/* Paginação  ------- */}
+
+        <Pagination 
+        className={styles.pagination}
+        current={data.current}
+        pageSize={data.pageSize}
+        total={data.estudantes.length}
+        onChange={(page, size) => {
+                setData((d) => ({...d, current: page, pageSize: size}));
+        }}
+        showSizeChanger
+        pageSizeOptions={["5", "10", "100"]}
+        />
+
+    </div>
     );
 }
