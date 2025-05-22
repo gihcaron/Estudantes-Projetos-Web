@@ -1,0 +1,17 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 10rem;
+        
+}
+
+.text{
+    font-size: 1.5rem;
+    color: #6500a5;
+    font-weight: bold;
+    text-align: center;
+}
+  

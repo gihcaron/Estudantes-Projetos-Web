@@ -6,6 +6,7 @@ import {Pagination, Modal, Card, Skeleton } from "antd";
 import { ToastContainer, toast} from "react-toastify";
 import { useEffect, useState } from "react";
 import styles from "./Estudantes.module.css";
+import Loader from "../../components/Loader"
 
 const Headers = {"x-api-key" : process.env.NEXT_PUBLIC_API_KEY};
 
@@ -48,7 +49,7 @@ export default function Estudantes() {
 const openModal = async (estudante) => {
     setModalInfo({
         visible: true, 
-        estudante, 
+        estudante: null,
         loading:true})
 
     try{
@@ -89,7 +90,12 @@ return (
             showSizeChanger
             pageSizeOptions={["5", "10", "100"]}
             />
-       
+
+        {data.loading ? (
+                <Loader
+                />
+
+          ) : (
         <div className={styles.cardsContainer}>
         {paginatedEstudantes().map((estudante) => (
             <Card
@@ -112,6 +118,8 @@ return (
         ))}
 
         </div>
+
+        )}
 
         {/* Modal */}
 
